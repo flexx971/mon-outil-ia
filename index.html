@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Prompts IA | Copywriters & Solopreneurs</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for clean dark look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-slate-800/80 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <i class="fa-solid fa-wand-magic-sparkles text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
+                        PromptForge <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Pro Studio</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Pour Copywriters & Solopreneurs</p>
+                </div>
+            </div>
+            <a href="#pro-section" class="hidden sm:inline-flex items-center space-x-2 text-xs font-medium px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition border border-slate-700/60 shadow-sm">
+                <i class="fa-solid fa-crown text-amber-400"></i>
+                <span>Version Pro</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 py-8 sm:py-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Form Section -->
+        <section class="lg:col-span-6 bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl shadow-black/40 backdrop-blur-sm">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-white tracking-tight">Paramètres de la Campagne</h2>
+                <p class="text-xs text-slate-400 mt-1">Remplissez ces champs pour structurer un prompt de niveau expert.</p>
+            </div>
+
+            <form id="prompt-form" class="space-y-5" onsubmit="event.preventDefault(); generatePrompt();">
+                <!-- Objectif -->
+                <div>
+                    <label for="goal" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                        <i class="fa-solid fa-bullseye text-indigo-400 mr-1.5"></i> Objectif de la campagne
+                    </label>
+                    <input type="text" id="goal" required
+                        placeholder="Ex: Générer des leads qualifiés via une séquence email de lancement"
+                        class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
+                </div>
+
+                <!-- Cible -->
+                <div>
+                    <label for="target" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                        <i class="fa-solid fa-users text-indigo-400 mr-1.5"></i> Cible visée (Avatar client)
+                    </label>
+                    <input type="text" id="target" required
+                        placeholder="Ex: Freelances en reconversion cherchant à atteindre 5k€/mois"
+                        class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
+                </div>
+
+                <!-- Ton de voix -->
+                <div>
+                    <label for="tone" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                        <i class="fa-solid fa-microphone-lines text-indigo-400 mr-1.5"></i> Ton de voix
+                    </label>
+                    <select id="tone" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
+                        <option value="Direct, percutant et sans jargon (Style Alex Caton)">Direct, percutant & sans jargon</option>
+                        <option value="Proche, empathique et inspirant (Storytelling)">Proche, empathique & inspirant (Storytelling)</option>
+                        <option value="Provocateur, analytique et disruptif">Provocateur, analytique & disruptif</option>
+                        <option value="Autoritaire, expert et ultra-professionnel">Autoritaire, expert & ultra-professionnel</option>
+                        <option value="Énergique, punchy et orienté action (E-commerce)">Énergique, punchy & orienté action</option>
+                    </select>
+                </div>
+
+                <!-- Produit / Service -->
+                <div>
+                    <label for="product" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                        <i class="fa-solid fa-box-open text-indigo-400 mr-1.5"></i> Produit ou Service à vendre
+                    </label>
+                    <textarea id="product" rows="3" required
+                        placeholder="Ex: Une formation en ligne de 4 semaines sur l'acquisition client par LinkedIn."
+                        class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition resize-none"></textarea>
+                </div>
+
+                <!-- Bouton Générer -->
+                <button type="submit" 
+                    class="w-full mt-2 py-3.5 px-6 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/25 transition flex items-center justify-center space-x-2 cursor-pointer active:scale-[0.99]">
+                    <i class="fa-solid fa-bolt-lightning"></i>
+                    <span>Générer le Prompt Parfait</span>
+                </button>
+            </form>
+        </section>
+
+        <!-- Result / Output Section -->
+        <section class="lg:col-span-6 bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl shadow-black/40 backdrop-blur-sm flex flex-col justify-between h-full min-h-[480px]">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                        Prompt Optimisé
+                        <span id="status-badge" class="hidden text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Prêt</span>
+                    </h2>
+                    <span class="text-xs text-slate-500 font-mono">Prêt pour ChatGPT / Gemini</span>
+                </div>
+                
+                <!-- Output Box -->
+                <div class="relative group">
+                    <textarea id="output-prompt" readonly rows="12"
+                        class="w-full bg-slate-950/90 border border-slate-800/90 rounded-xl p-4 text-xs font-mono text-slate-300 focus:outline-none resize-none leading-relaxed shadow-inner"
+                        placeholder="Votre prompt ultra-optimisé apparaîtra ici après avoir rempli le formulaire et cliqué sur 'Générer le Prompt Parfait'..."></textarea>
+                </div>
+            </div>
+
+            <!-- Copy Button -->
+            <div class="mt-6">
+                <button id="copy-btn" onclick="copyToClipboard()" disabled
+                    class="w-full py-3.5 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 disabled:bg-slate-900 disabled:text-slate-600 disabled:cursor-not-allowed text-slate-200 font-semibold text-sm transition flex items-center justify-center space-x-2 border border-slate-700/60 shadow-sm cursor-pointer">
+                    <i class="fa-regular fa-copy"></i>
+                    <span id="copy-text">Copier dans le presse-papier</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pro Section Banner -->
+    <section id="pro-section" class="max-w-5xl mx-auto px-4 pb-12 w-full">
+        <div class="bg-gradient-to-r from-indigo-950/40 via-purple-950/40 to-slate-900 border border-indigo-500/30 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl relative overflow-hidden">
+            <!-- Background glow effect -->
+            <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="space-y-2 text-center sm:text-left z-10">
+                <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold">
+                    <i class="fa-solid fa-crown"></i>
+                    <span>Offre Limitée Solopreneurs</span>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Pack Ultime : 50 Workflows de Copywriting IA</h3>
+                <p class="text-xs sm:text-sm text-slate-400 max-w-xl">
+                    Débloquez des prompts experts pour tunnels de vente, pages de capture, scripts VSL, publicités Meta/Google et séquences d'emailing à haute conversion.
+                </p>
+            </div>
+
+            <div class="z-10 shrink-0">
+                <a href="https://example.com/checkout-pro" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 transition hover:scale-105 active:scale-95">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    <span>Obtenir le Pack Pro (29€)</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-600">
+        <p>&copy; 2026 PromptForge Pro. Conçu pour maximiser votre productivité et vos conversions.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function generatePrompt() {
+            const goal = document.getElementById('goal').value.trim();
+            const target = document.getElementById('target').value.trim();
+            const tone = document.getElementById('tone').value;
+            const product = document.getElementById('product').value.trim();
+
+            if (!goal || !target || !product) {
+                alert('Veuillez remplir tous les champs obligatoires.');
+                return;
+            }
+
+            // Construction du prompt expert ultra-spécifique
+            const generatedText = `Agis en tant que Directeur Marketing senior et Copywriter d'élite spécialisé dans la conversion pour solopreneurs.
+
+[CONTEXTE DE LA MISSION]
+- Objectif de la campagne : ${goal}
+- Cible visée (Avatar) : ${target}
+- Produit ou Service : ${product}
+- Ton de voix requis : ${tone}
+
+[MÉTHODOLOGIE À SUIVRE]
+1. Analyse psychologique préalable : Identifie les 3 principales frustrations (pains) et les 2 désirs profonds de la cible visée par rapport au produit présenté.
+2. Structure persuasive : Utilise une architecture éprouvée (ex: AIDA - Attention, Intérêt, Désir, Action ou PAS - Problème, Agitation, Solution).
+3. Copywriting à haute conversion : Supprime tout jargon abstrait. Utilise des phrases courtes, rythmées et percutantes. Intègre des tournures de phrases mémorables et un appel à l'action clair et magnétique.
+
+[LIVRABLE ATTENDU]
+Rédige le contenu final prêt à l'emploi en respectant rigoureusement les critères ci-dessus. Fournis également 3 variations d'accroches (hooks) alternatives pour tester différentes angles marketing.`;
+
+            const outputBox = document.getElementById('output-prompt');
+            outputBox.value = generatedText;
+
+            // Activer le bouton de copie et le badge
+            const copyBtn = document.getElementById('copy-btn');
+            copyBtn.disabled = false;
+            
+            const statusBadge = document.getElementById('status-badge');
+            statusBadge.classList.remove('hidden');
+
+            // Petit effet visuel de mise à jour
+            outputBox.classList.add('border-indigo-500/50');
+            setTimeout(() => {
+                outputBox.classList.remove('border-indigo-500/50');
+            }, 500);
+        }
+
+        function copyToClipboard() {
+            const outputBox = document.getElementById('output-prompt');
+            if (!outputBox.value) return;
+
+            navigator.clipboard.writeText(outputBox.value).then(() => {
+                const copyText = document.getElementById('copy-text');
+                const copyBtn = document.getElementById('copy-btn');
+                
+                copyText.textContent = "Copié dans le presse-papier !";
+                copyBtn.classList.remove('bg-slate-800', 'hover:bg-slate-700');
+                copyBtn.classList.add('bg-emerald-600', 'text-white');
+
+                setTimeout(() => {
+                    copyText.textContent = "Copier dans le presse-papier";
+                    copyBtn.classList.remove('bg-emerald-600', 'text-white');
+                    copyBtn.classList.add('bg-slate-800', 'hover:bg-slate-700');
+                }, 2500);
+            }).catch(err => {
+                console.error('Erreur lors de la copie : ', err);
+            });
+        }
+    </script>
+</body>
+</html>
